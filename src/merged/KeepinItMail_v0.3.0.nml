@@ -1,0 +1,233 @@
+/* *** Begin Header *** */
+
+//define the grf
+grf {
+    grfid: "KR01";
+    name: string(STR_GRF_NAME);
+    desc: string(STR_GRF_DESC);
+    version: 0;
+    min_compatible_version: 0;
+}
+
+ cargotable {
+ 	MAIL
+ }
+ 
+ /* Disable all base game vehicles. */
+disable_item(FEAT_ROADVEHS);
+
+/* Sort vehicles in the purchase menu.
+
+Vehicle IDs are set manually for each train so updates are savegame-compatible.
+
+0: Dennis
+1: Morris M8
+2: Goldmire
+3: Littleduke
+
+*/
+
+sort(FEAT_ROADVEHS, [
+/* Mail Vans */
+    /* Road Hog */
+
+    0, // Dennis
+    1, // Morris M6
+    2, // Goldmire
+    3, // Littleduke
+]);
+
+/* *** End Header *** */
+
+/* Begin Sprite Templates */
+
+/* Purchase Templates */
+
+template tmpl_purchase (x, y) {
+    //left_x, upper_y, width, height, offset_x, offset_y    
+		[]
+	 	[]
+	 	[]
+	 	[]
+	 	[]
+	 	[]
+        [x, y, 76, 15, -14, -8]
+		[]
+}
+
+/* Sprite template for a truck */
+
+template tmpl_truck(x, y) {
+    //left_x, upper_y, width, height, offset_x, offset_y
+    [  0 + x, y,        8,    18,      -3,      -10]
+    [ 16 + x, y,       20,    16,     -14,       -7]
+    [ 48 + x, y,       28,    12,     -14,       -6]
+    [ 96 + x, y,       20,    16,      -6,       -7]
+    [128 + x, y,        8,    18,      -3,      -10]
+    [144 + x, y,       20,    16,     -14,       -7]
+    [176 + x, y,       28,    12,     -14,       -6]
+    [224 + x, y,       20,    16,      -6,       -7]
+}
+
+template template_1x_truck(x, y) {
+    //left_x, upper_y, width, height, offset_x, offset_y
+    [ x,		y,		9,		30,		-4,			-20,	ANIM]
+    [ x+17,		y,		26,		27,		-13,		-16,	ANIM]
+    [ x+51,		y,		33,		19,		-13,		-14,	ANIM]
+    [ x+92,		y,		26,		27,		-13,		-17,	ANIM]
+    [ x+126,	y,		9,		30,		-4,			-20,	ANIM]
+    [ x+143,	y,		26,		24,		-14,		-16,	ANIM]
+    [ x+177,	y,		33,		19,		-16,		-14,	ANIM]
+    [ x+218,	y,		26,		24,		-13,		-17,	ANIM]
+}
+
+template template_2x_truck(x, y) {
+    //left_x, upper_y, width, height, offset_x, offset_y
+    [ x,		y,		18,		60,		-8,			-40,	ANIM]
+    [ x+34,		y,		52,		54,		-26,		-32,	ANIM]
+    [ x+102,	y,		66,		38,		-26,		-28,	ANIM]
+    [ x+184,	y,		52,		54,		-26,		-34,	ANIM]
+    [ x+252,	y,		18,		60,		-8,			-40,	ANIM]
+    [ x+286,	y,		52,		48,		-28,		-32,	ANIM]
+    [ x+354,	y,		66,		38,		-32,		-28,	ANIM]
+    [ x+436,	y,		52,		48,		-26,		-34,	ANIM]
+}
+
+template template_4x_truck(x, y) {
+    //left_x, upper_y, width, height, offset_x, offset_y
+    [ x,		y,		36,		120,	-16,		-80,	ANIM]
+    [ x+68,		y,		104,	108,	-52,		-64,	ANIM]
+    [ x+204,	y,		132,	76,		-52,		-56,	ANIM]
+    [ x+368,	y,		104,	108,	-52,		-68,	ANIM]
+    [ x+504,	y,		36,		120,	-16,		-80,	ANIM]
+    [ x+572,	y,		104,	96,		-56,		-64,	ANIM]
+    [ x+708,	y,		132,	76,		-64,		-56,	ANIM]
+    [ x+872,	y,		104,	96,		-52,		-68,	ANIM]
+}
+
+/* End Sprite Templates */
+
+
+/* Begin Functions */
+
+
+
+/* End Functions */
+
+/* Begin dennis */
+
+/* ITEM*/
+
+//graphics definition
+spriteset(spriteset_dennis, "src/gfx/dennis/dennis_bigger_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+spriteset(spriteset_purchase_dennis, "src/gfx/dennis/purchase_dennis.png") {
+    tmpl_purchase (0, 0)
+}
+
+/* Define the road vehicle */
+item(FEAT_ROADVEHS, item_dennis, 0) {
+    property {
+        /* Properties common to all vehicle types */
+        name:                           string(STR_NAME_DENNIS);
+        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
+        introduction_date:              date(1905,01,01);
+        model_life:                     65;
+        /* retire_early not set, use default retirement behaviour */
+        vehicle_life:                   40;
+        reliability_decay:              20;
+        refittable_cargo_classes:       bitmask(CC_MAIL);
+        default_cargo_type:             MAIL;
+        non_refittable_cargo_classes:   bitmask(CC_PASSENGERS, CC_EXPRESS, CC_REFRIGERATED);
+        loading_speed:                  25;
+        cost_factor:                    100;
+        running_cost_factor:            98;
+        /* cargo_age_period is left at default */
+
+        /* RV-specific properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
+        speed:                          64 km/h;
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC);
+        refit_cost:                     0; // Refitting is free
+        /* callback_flags are not set, no need to manually enable callbacks */
+        running_cost_base:              RUNNING_COST_ROADVEH;
+        power:                          91 hp;
+        weight:                         6 ton;
+        tractive_effort_coefficient:    0.7;                                // Default is 0.3
+        /* Air drag coefficient is left at default */
+        cargo_capacity:                 100;
+        sound_effect:                   SOUND_BUS_START_PULL_AWAY;
+        /* Visual effect is left at default (no effect) */
+    }
+
+    /* Define graphics */
+    graphics {
+        default:                        spriteset_dennis;
+            purchase:                       spriteset_purchase_dennis;
+        cargo_capacity:                 200;                                // This will be what appears in game
+    }
+}
+
+/* End dennis */
+
+/* Begin morris_m8 */
+
+/* ITEM*/
+
+//graphics definition
+spriteset(spriteset_morris_m8, "src/gfx/morris_m8/morris_m8_smaller_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+/*
+spriteset(spriteset_purchase_morris_m8, "src/gfx/morris_m8/purchase_morris_m8.png") {
+    tmpl_purchase (0, 0)
+}
+*/
+
+/* Define the road vehicle */
+item(FEAT_ROADVEHS, item_m8, 1) {
+    property {
+        /* Properties common to all vehicle types */
+        name:                           string(STR_NAME_M8);
+        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
+        introduction_date:              date(1940,01,01);
+        model_life:                     65;
+        /* retire_early not set, use default retirement behaviour */
+        vehicle_life:                   40;
+        reliability_decay:              20;
+        refittable_cargo_classes:       bitmask(CC_MAIL);
+        default_cargo_type:             MAIL;
+        non_refittable_cargo_classes:   bitmask(CC_PASSENGERS, CC_EXPRESS, CC_REFRIGERATED);
+        loading_speed:                  50;
+        cost_factor:                    116;
+        running_cost_factor:            116;
+        /* cargo_age_period is left at default */
+
+        /* RV-specific properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;              //enable new graphics
+        speed:                          88 km/h;
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC);
+        refit_cost:                     0;                                  // Refitting is free
+        /* callback_flags are not set, no need to manually enable callbacks */
+        running_cost_base:              RUNNING_COST_ROADVEH;
+        power:                          140 hp;
+        weight:                         6 ton;
+        tractive_effort_coefficient:    0.7;                                // Default is 0.3
+        /* Air drag coefficient is left at default */
+        cargo_capacity:                 150;                                // Max 255. Overridden by callback below
+        sound_effect:                   SOUND_BUS_START_PULL_AWAY;
+        /* Visual effect is left at default (no effect) */
+    }
+
+    /* Define graphics */
+    graphics {
+        default:                        spriteset_morris_m8;
+            // purchase:                       spriteset_purchase_morris_m8;
+        cargo_capacity:                 300;                                // This will be what appears in game
+    }
+}
+
+/* End morris_m8 */

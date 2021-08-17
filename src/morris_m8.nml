@@ -1,0 +1,76 @@
+/* Begin morris_m8 */
+
+/* ITEM*/
+
+//graphics definition
+spriteset(spriteset_morris_m8_1, "src/gfx/morris_m8/morris_m8_smaller_1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+spriteset(spriteset_morris_m8_2, "src/gfx/morris_m8/morris_m8_smaller_1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+alternative_sprites(spriteset_morris_m8_2, ZOOM_LEVEL_IN_2X, BIT_DEPTH_8BPP, "src/gfx/morris_m8/morris_m8_smaller_2x_8bpp.png") {
+	template_2x_truck(0,0)
+}
+
+spritegroup spritegroup_morris_m8_1 {
+	loaded:		[spriteset_morris_m8_1];
+	loading:	[spriteset_morris_m8_1];
+}
+
+spritegroup spritegroup_morris_m8_2 {
+	loaded:		[spriteset_morris_m8_2];
+	loading:	[spriteset_morris_m8_2];
+}
+
+switch (FEAT_ROADVEHS, SELF, resolution_morris_m8, param_resolution) {
+0: spritegroup_morris_m8_1;
+1: spritegroup_morris_m8_2;
+}
+
+/* Define the road vehicle */
+item(FEAT_ROADVEHS, item_m8, 1) {
+    property {
+        /* Properties common to all vehicle types */
+        name:                           string(STR_NAME_M8);
+        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
+        introduction_date:              date(1940,01,01);
+        model_life:                     65;
+        /* retire_early not set, use default retirement behaviour */
+        vehicle_life:                   40;
+        reliability_decay:              20;
+        refittable_cargo_classes:       bitmask(CC_MAIL);
+        default_cargo_type:             MAIL;
+        non_refittable_cargo_classes:   bitmask(CC_PASSENGERS, CC_EXPRESS, CC_REFRIGERATED);
+        loading_speed:                  50;
+        cost_factor:                    116;
+        running_cost_factor:            116;
+        /* cargo_age_period is left at default */
+
+        /* RV-specific properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;              //enable new graphics
+        speed:                          88 km/h;
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC);
+        refit_cost:                     0;                                  // Refitting is free
+        /* callback_flags are not set, no need to manually enable callbacks */
+        running_cost_base:              RUNNING_COST_ROADVEH;
+        power:                          140 hp;
+        weight:                         6 ton;
+        tractive_effort_coefficient:    0.7;                                // Default is 0.3
+        /* Air drag coefficient is left at default */
+        cargo_capacity:                 150;                                // Max 255. Overridden by callback below
+        sound_effect:                   SOUND_BUS_START_PULL_AWAY;
+        /* Visual effect is left at default (no effect) */
+    }
+
+    /* Define graphics */
+    graphics {
+        default:                        resolution_morris_m8;
+            // purchase:                       spriteset_purchase_morris_m8;
+        cargo_capacity:                 300;                                // This will be what appears in game
+    }
+}
+
+/* End morris_m8 */

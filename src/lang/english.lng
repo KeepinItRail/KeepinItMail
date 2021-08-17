@@ -1,0 +1,22 @@
+##grflangid 0x01
+
+STR_GRF_NAME						:{TITLE} {VERSION}
+STR_GRF_DESC						:{ORANGE}KeepinItMail {BLACK}- Mail Vans with large capacities {}{}Version 0.3.0 {}{}Created by KeepItRail.{}{}Sprites and vehicle stats, excluding capacity, taken from AndytheNorth's RoadHog. 
+STR_WEBSITE							:https://github.com/KeepinItRail/KeepinItMail
+
+
+# parameters
+STR_PARAM_NAME_RESOLUTION			:Graphics resolution
+STR_PARAM_DESC_RESOLUTION			:Choose the zoom level of the vehicles. Default TTD scale is 1x zoom.
+
+STR_RESOLUTION_1					:1x regular zoom
+STR_RESOLUTION_2					:2x extrazoom
+
+# vehicle names
+STR_NAME_DENNIS                     :Dennis Mail Truck {SILVER}1910
+STR_NAME_M8                         :Morris M8 Mail Truck {SILVER}1932
+
+STR_NAME_TH                         :Tallyho Mail Truck {SILVER}1909
+STR_NAME_BM                         :Brass Monkey Mail Truck {SILVER}1940
+STR_NAME_GM                         :Goldmire Mail Truck {SILVER}1971
+STR_NAME_LD                         :Littleduke Mail Truck {SILVER}1998

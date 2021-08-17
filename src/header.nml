@@ -1,0 +1,51 @@
+/* *** Begin Header *** */
+
+//define the grf
+grf {
+    grfid: "KR01";
+    name: string(STR_GRF_NAME);
+    desc: string(STR_GRF_DESC);
+    version: 0;
+    min_compatible_version: 0;  
+
+    param 0 {
+		param_resolution {
+			name: string(STR_PARAM_NAME_RESOLUTION);
+			desc: string(STR_PARAM_DESC_RESOLUTION);
+			type: int;
+			min_value: 0;
+			max_value: 1;
+			def_value: 0;
+			names:	{
+				0:	string(STR_RESOLUTION_1);
+				1:	string(STR_RESOLUTION_2);
+			};
+        }
+    }    
+}
+
+ cargotable {
+ 	MAIL
+ }
+ 
+ /* Disable all base game vehicles. */
+disable_item(FEAT_ROADVEHS);
+
+/* Sort vehicles in the purchase menu.
+
+Vehicle IDs are set manually for each train so updates are savegame-compatible.
+
+0: Dennis
+1: Morris M8
+
+*/
+
+sort(FEAT_ROADVEHS, [
+/* Mail Vans */
+    /* Road Hog */
+
+    0, // Dennis
+    1, // Morris M8
+]);
+
+/* *** End Header *** */
