@@ -1,0 +1,32 @@
+// Begin Parameters
+ 
+/*	CAPACITIES	*/
+
+// Normal
+if (param_mailcapacity == 0) {
+	param_capacity_dennis = 20 ;
+	param_capacity_morris_m8 = 30;
+	param_capacity_morris_jb = 40;
+	param_capacity_sherpa = 70;
+	param_capacity_transit = 70;			// Close to "ld"
+}
+
+// High
+if (param_mailcapacity == 2) {
+	param_capacity_dennis = 200 ;
+	param_capacity_morris_m8 = 250;
+	param_capacity_morris_jb = 300;
+	param_capacity_sherpa = 350;
+	param_capacity_transit = 400;
+}
+
+// In between - halfway between Normal and High
+if (param_mailcapacity == 1) {
+	param_capacity_dennis = 110;
+	param_capacity_morris_m8 = 140;
+	param_capacity_morris_jb = 170;
+	param_capacity_sherpa = (350 + 70) / 2;
+	param_capacity_transit = (400 + 70) / 2;
+}
+
+ // End Parameters

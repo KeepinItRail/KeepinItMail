@@ -3,11 +3,31 @@
 .nmlcache
 *.cacheindex
 *.cache
+__pycache__
 
 # Remove renderobject which produces the sprites from voxels
 renderobject
+newrender.py
 
 # Old versions of the GRF
-KeepinItMail_v0.1.0.grf
-KeepinItMail_v0.2.0.grf
-KeepinItMail_v0.3.0.grf
+*.grf
+
+# Backup folders of stuff in case I screw up
+backup/
+version_history/
+
+# Research and Docs
+zResearch
+*.ods
+graph.py
+comparables.csv
+Speed Graph.png
+ld.nml
+th.nml
+bm.nml
+gm.nml
+1x_screen.png
+2x_screen.png
+1x&2x_screen.xcf
+vehicles.csv
+need_mail001.png

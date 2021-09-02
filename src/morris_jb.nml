@@ -1,42 +1,42 @@
-/* Begin morris_m8 */
+/* Begin morris_jb */
 
 /* ITEM*/
 
 //graphics definition
-spriteset(spriteset_morris_m8_1, "src/gfx/morris_m8/1x_8bpp.png") {
+spriteset(spriteset_morris_jb_1, "src/gfx/morris_jb/1x_8bpp.png") {
     template_1x_truck(0, 0)
 }
 
-spriteset(spriteset_morris_m8_2, "src/gfx/morris_m8/1x_8bpp.png") {
+spriteset(spriteset_morris_jb_2, "src/gfx/morris_jb/1x_8bpp.png") {
     template_1x_truck(0, 0)
 }
 
-alternative_sprites(spriteset_morris_m8_2, ZOOM_LEVEL_IN_2X, BIT_DEPTH_8BPP, "src/gfx/morris_m8/2x_8bpp.png") {
+alternative_sprites(spriteset_morris_jb_2, ZOOM_LEVEL_IN_2X, BIT_DEPTH_8BPP, "src/gfx/morris_jb/2x_8bpp.png") {
 	template_2x_truck(0,0)
 }
 
-spritegroup spritegroup_morris_m8_1 {
-	loaded:		[spriteset_morris_m8_1];
-	loading:	[spriteset_morris_m8_1];
+spritegroup spritegroup_morris_jb_1 {
+	loaded:		[spriteset_morris_jb_1];
+	loading:	[spriteset_morris_jb_1];
 }
 
-spritegroup spritegroup_morris_m8_2 {
-	loaded:		[spriteset_morris_m8_2];
-	loading:	[spriteset_morris_m8_2];
+spritegroup spritegroup_morris_jb_2 {
+	loaded:		[spriteset_morris_jb_2];
+	loading:	[spriteset_morris_jb_2];
 }
 
-switch (FEAT_ROADVEHS, SELF, resolution_morris_m8, param_resolution) {
-0: spritegroup_morris_m8_1;
-1: spritegroup_morris_m8_2;
+switch (FEAT_ROADVEHS, SELF, resolution_morris_jb, param_resolution) {
+0: spritegroup_morris_jb_1;
+1: spritegroup_morris_jb_2;
 }
 
 /* Define the road vehicle */
-item(FEAT_ROADVEHS, item_m8, 1) {
+item(FEAT_ROADVEHS, item_jb, 2) {
     property {
         /* Properties common to all vehicle types */
-        name:                           string(STR_NAME_M8);
+        name:                           string(STR_NAME_JB);
         climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
-        introduction_date:              date(1932,01,01);
+        introduction_date:              date(1957,01,01);                   // JB type intoduced in 1957. J type was 1949
         model_life:                     65;
         /* retire_early not set, use default retirement behaviour */
         vehicle_life:                   40;
@@ -44,19 +44,19 @@ item(FEAT_ROADVEHS, item_m8, 1) {
         refittable_cargo_classes:       bitmask(CC_MAIL);
         default_cargo_type:             MAIL;
         non_refittable_cargo_classes:   bitmask(CC_PASSENGERS, CC_EXPRESS, CC_REFRIGERATED);
-        loading_speed:                  50;
+        loading_speed:                  param_capacity_morris_jb / 5;       // 20% with each load
         cost_factor:                    116;
         running_cost_factor:            116;
         /* cargo_age_period is left at default */
 
         /* RV-specific properties */
-        sprite_id:                      SPRITE_ID_NEW_ROADVEH;              //enable new graphics
-        speed:                          88 km/h;
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;              // enable new graphics
+        speed:                          100 km/h;                           // rough interpolation between 'bm' and 'gm' 
         misc_flags:                     bitmask(ROADVEH_FLAG_2CC);
         refit_cost:                     0;                                  // Refitting is free
         /* callback_flags are not set, no need to manually enable callbacks */
         running_cost_base:              RUNNING_COST_ROADVEH;
-        power:                          140 hp;
+        power:                          180 hp;                             // interpolation of 'bm' and 'gm'
         weight:                         6 ton;
         tractive_effort_coefficient:    0.7;                                // Default is 0.3
         /* Air drag coefficient is left at default */
@@ -67,10 +67,10 @@ item(FEAT_ROADVEHS, item_m8, 1) {
 
     /* Define graphics */
     graphics {
-        default:                        resolution_morris_m8;
-            // purchase:                spriteset_purchase_morris_m8;
-        cargo_capacity:                 param_capacity_morris_m8;                                // This will be what appears in game
+        default:                        resolution_morris_jb;
+            // purchase:                       spriteset_purchase_morris_jb;
+        cargo_capacity:                 param_capacity_morris_jb;            // Parameter driven
     }
 }
 
-/* End morris_m8 */
+/* End morris_jb */

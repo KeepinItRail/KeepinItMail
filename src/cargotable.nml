@@ -1,0 +1,7 @@
+// Begin Cargotable
+ 
+ cargotable {
+ 	MAIL		// point of the set is Mail Vans
+ }
+
+ // End Cargotable

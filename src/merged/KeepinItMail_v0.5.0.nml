@@ -1,0 +1,535 @@
+/* *** Begin Header *** */
+
+//define the grf
+grf {
+    grfid: "KR01";
+    name: string(STR_GRF_NAME);
+    desc: string(STR_GRF_DESC);
+    version: 0;
+    min_compatible_version: 0;  
+
+	// resolution
+    param 0 {
+		param_resolution {
+			name: string(STR_PARAM_NAME_RESOLUTION);
+			desc: string(STR_PARAM_DESC_RESOLUTION);
+			type: int;
+			min_value: 0;
+			max_value: 1;
+			def_value: 0;
+			names:	{
+				0:	string(STR_RESOLUTION_1);
+				1:	string(STR_RESOLUTION_2);
+			};
+        }
+    }  
+	//mail capacity
+		param 1 {
+				param_mailcapacity {
+						type: int;
+						name: string(STR_PARAM_NAME_CAPACITY);
+						desc: string(STR_PARAM_DESC_CAPACITY);
+						min_value: 0;
+						max_value: 2;
+						def_value: 0;
+						names: {
+												0: string(STR_PARAM_NORMAL);
+												1: string(STR_PARAM_INBETWEEN);
+												2: string(STR_PARAM_HIGH);
+
+						};
+				}
+		}  
+}
+ 
+ /* Disable all base game vehicles. */
+disable_item(FEAT_ROADVEHS);
+
+/* Sort vehicles in the purchase menu.
+
+Vehicle IDs are set manually for each train so updates are savegame-compatible.
+
+0: Dennis
+1: Morris M8
+2: Morris JB-type
+3: Leyland Sherpa
+4: Ford Transit
+
+*/
+
+sort(FEAT_ROADVEHS, [
+/* Mail Vans */
+    /* Road Hog */
+
+    0, // Dennis
+    1, // Morris M8
+	2, // Morris JB-type
+	3, // Leyland Sherpa
+	4, // Ford Transit
+]);
+
+/* *** End Header *** */
+
+// Begin Cargotable
+ 
+ cargotable {
+ 	MAIL		// point of the set is Mail Vans
+ }
+
+ // End Cargotable
+
+/* Begin Sprite Templates */
+
+/* Sprite template for a truck */
+
+template template_1x_truck(x, y) {                               
+    //left_x, upper_y, width, height, offset_x, offset_y
+    [ x,		y,		9,		23,		-4,			-10,	ANIM]   // ⬆ y: more -ve = U | less -ve = D
+    [ x+17,		y,		26,		27,		-13,		-17,	ANIM]   // ↗
+    [ x+51,		y,		33,		19,		-16,		-13,	ANIM]   // ➡ x: more -ve = L | less -ve = R y: more -ve = U | less -ve = D
+    [ x+92,		y,		26,		27,		-7,		    -15,	ANIM]   // ↘
+    [ x+126,	y,		9,		23,		-4,			-10,	ANIM]   // ⬇ y: more -ve = U | less -ve = D
+    [ x+143,	y,		26,		27,		-19,		-13,	ANIM]   // ↙
+    [ x+177,	y,		33,		19,		-16,		-12,	ANIM]   // ⬅ y: more -ve = U | less -ve = D
+    [ x+218,	y,		26,		27,		-13,		-17,	ANIM]   // ↖
+}
+
+template template_2x_truck(x, y) {
+    //left_x, upper_y, width, height, offset_x, offset_y
+    [ x,		y,		18,		46,		-8,			-20,	ANIM]   // ⬆
+    [ x+34,		y,		52,		54,		-26,		-34,	ANIM]   // ↗
+    [ x+102,	y,		66,		38,		-32,		-26,	ANIM]   // ➡
+    [ x+184,	y,		52,		54,		-12,		-30,	ANIM]   // ↘
+    [ x+252,	y,		18,		46,		-8,			-20,	ANIM]   // ⬇
+    [ x+286,	y,		52,		54,		-38,		-26,	ANIM]   // ↙
+    [ x+354,	y,		66,		38,		-32,		-24,	ANIM]   // ⬅
+    [ x+436,	y,		52,		54,		-26,		-34,	ANIM]   // ↖
+}
+
+/* End Sprite Templates */
+
+
+/* Begin Functions */
+
+
+
+/* End Functions */
+
+// Begin Parameters
+ 
+/*	CAPACITIES	*/
+
+// Normal
+if (param_mailcapacity == 0) {
+	param_capacity_dennis = 20 ;
+	param_capacity_morris_m8 = 30;
+	param_capacity_morris_jb = 40;
+	param_capacity_sherpa = 70;
+	param_capacity_transit = 70;			// Close to "ld"
+}
+
+// High
+if (param_mailcapacity == 2) {
+	param_capacity_dennis = 200 ;
+	param_capacity_morris_m8 = 250;
+	param_capacity_morris_jb = 300;
+	param_capacity_sherpa = 350;
+	param_capacity_transit = 400;
+}
+
+// In between - halfway between Normal and High
+if (param_mailcapacity == 1) {
+	param_capacity_dennis = 110;
+	param_capacity_morris_m8 = 140;
+	param_capacity_morris_jb = 170;
+	param_capacity_sherpa = (350 + 70) / 2;
+	param_capacity_transit = (400 + 70) / 2;
+}
+
+ // End Parameters
+
+/* Begin dennis */
+
+/* ITEM*/
+
+//graphics definition
+spriteset(spriteset_dennis_1, "src/gfx/dennis/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+spriteset(spriteset_dennis_2, "src/gfx/dennis/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+alternative_sprites(spriteset_dennis_2, ZOOM_LEVEL_IN_2X, BIT_DEPTH_8BPP, "src/gfx/dennis/2x_8bpp.png") {
+	template_2x_truck(0,0)
+}
+
+spritegroup spritegroup_dennis_1 {
+	loaded:		[spriteset_dennis_1];
+	loading:	[spriteset_dennis_1];
+}
+
+spritegroup spritegroup_dennis_2 {
+	loaded:		[spriteset_dennis_2];
+	loading:	[spriteset_dennis_2];
+}
+
+switch (FEAT_ROADVEHS, SELF, resolution_dennis, param_resolution) {
+0: spritegroup_dennis_1;
+1: spritegroup_dennis_2;
+}
+
+/* Define the road vehicle */
+item(FEAT_ROADVEHS, item_dennis, 0) {
+    property {
+        /* Properties common to all vehicle types */
+        name:                           string(STR_NAME_DENNIS);
+        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
+        introduction_date:              date(1905,01,01);
+        model_life:                     65;
+        /* retire_early not set, use default retirement behaviour */
+        vehicle_life:                   40;
+        reliability_decay:              20;
+        refittable_cargo_classes:       bitmask(CC_MAIL);
+        default_cargo_type:             MAIL;
+        non_refittable_cargo_classes:   bitmask(CC_PASSENGERS, CC_EXPRESS, CC_REFRIGERATED);
+        loading_speed:                  25;
+        cost_factor:                    100;
+        running_cost_factor:            98;
+        /* cargo_age_period is left at default */
+
+        /* RV-specific properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH; //enable new graphics
+        speed:                          64 km/h;
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC);
+        refit_cost:                     0; // Refitting is free
+        /* callback_flags are not set, no need to manually enable callbacks */
+        running_cost_base:              RUNNING_COST_ROADVEH;
+        power:                          91 hp;
+        weight:                         6 ton;
+        tractive_effort_coefficient:    0.7;                                // Default is 0.3
+        /* Air drag coefficient is left at default */
+        cargo_capacity:                 100;
+        sound_effect:                   SOUND_BUS_START_PULL_AWAY;
+        /* Visual effect is left at default (no effect) */
+    }
+
+    /* Define graphics */
+    graphics {
+        default:                        resolution_dennis;
+            // purchase:                       spriteset_purchase_dennis;
+        cargo_capacity:                 param_capacity_dennis;                                // This will be what appears in game
+    }
+}
+
+/* End dennis */
+
+/* Begin morris_jb */
+
+/* ITEM*/
+
+//graphics definition
+spriteset(spriteset_morris_jb_1, "src/gfx/morris_jb/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+spriteset(spriteset_morris_jb_2, "src/gfx/morris_jb/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+alternative_sprites(spriteset_morris_jb_2, ZOOM_LEVEL_IN_2X, BIT_DEPTH_8BPP, "src/gfx/morris_jb/2x_8bpp.png") {
+	template_2x_truck(0,0)
+}
+
+spritegroup spritegroup_morris_jb_1 {
+	loaded:		[spriteset_morris_jb_1];
+	loading:	[spriteset_morris_jb_1];
+}
+
+spritegroup spritegroup_morris_jb_2 {
+	loaded:		[spriteset_morris_jb_2];
+	loading:	[spriteset_morris_jb_2];
+}
+
+switch (FEAT_ROADVEHS, SELF, resolution_morris_jb, param_resolution) {
+0: spritegroup_morris_jb_1;
+1: spritegroup_morris_jb_2;
+}
+
+/* Define the road vehicle */
+item(FEAT_ROADVEHS, item_jb, 2) {
+    property {
+        /* Properties common to all vehicle types */
+        name:                           string(STR_NAME_JB);
+        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
+        introduction_date:              date(1957,01,01);                   // JB type intoduced in 1957. J type was 1949
+        model_life:                     65;
+        /* retire_early not set, use default retirement behaviour */
+        vehicle_life:                   40;
+        reliability_decay:              20;
+        refittable_cargo_classes:       bitmask(CC_MAIL);
+        default_cargo_type:             MAIL;
+        non_refittable_cargo_classes:   bitmask(CC_PASSENGERS, CC_EXPRESS, CC_REFRIGERATED);
+        loading_speed:                  param_capacity_morris_jb / 5;       // 20% with each load
+        cost_factor:                    116;
+        running_cost_factor:            116;
+        /* cargo_age_period is left at default */
+
+        /* RV-specific properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;              // enable new graphics
+        speed:                          100 km/h;                           // rough interpolation between 'bm' and 'gm' 
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC);
+        refit_cost:                     0;                                  // Refitting is free
+        /* callback_flags are not set, no need to manually enable callbacks */
+        running_cost_base:              RUNNING_COST_ROADVEH;
+        power:                          180 hp;                             // interpolation of 'bm' and 'gm'
+        weight:                         6 ton;
+        tractive_effort_coefficient:    0.7;                                // Default is 0.3
+        /* Air drag coefficient is left at default */
+        cargo_capacity:                 150;                                // Max 255. Overridden by callback below
+        sound_effect:                   SOUND_BUS_START_PULL_AWAY;
+        /* Visual effect is left at default (no effect) */
+    }
+
+    /* Define graphics */
+    graphics {
+        default:                        resolution_morris_jb;
+            // purchase:                       spriteset_purchase_morris_jb;
+        cargo_capacity:                 param_capacity_morris_jb;            // Parameter driven
+    }
+}
+
+/* End morris_jb */
+
+/* Begin morris_m8 */
+
+/* ITEM*/
+
+//graphics definition
+spriteset(spriteset_morris_m8_1, "src/gfx/morris_m8/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+spriteset(spriteset_morris_m8_2, "src/gfx/morris_m8/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+alternative_sprites(spriteset_morris_m8_2, ZOOM_LEVEL_IN_2X, BIT_DEPTH_8BPP, "src/gfx/morris_m8/2x_8bpp.png") {
+	template_2x_truck(0,0)
+}
+
+spritegroup spritegroup_morris_m8_1 {
+	loaded:		[spriteset_morris_m8_1];
+	loading:	[spriteset_morris_m8_1];
+}
+
+spritegroup spritegroup_morris_m8_2 {
+	loaded:		[spriteset_morris_m8_2];
+	loading:	[spriteset_morris_m8_2];
+}
+
+switch (FEAT_ROADVEHS, SELF, resolution_morris_m8, param_resolution) {
+0: spritegroup_morris_m8_1;
+1: spritegroup_morris_m8_2;
+}
+
+/* Define the road vehicle */
+item(FEAT_ROADVEHS, item_m8, 1) {
+    property {
+        /* Properties common to all vehicle types */
+        name:                           string(STR_NAME_M8);
+        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
+        introduction_date:              date(1932,01,01);
+        model_life:                     65;
+        /* retire_early not set, use default retirement behaviour */
+        vehicle_life:                   40;
+        reliability_decay:              20;
+        refittable_cargo_classes:       bitmask(CC_MAIL);
+        default_cargo_type:             MAIL;
+        non_refittable_cargo_classes:   bitmask(CC_PASSENGERS, CC_EXPRESS, CC_REFRIGERATED);
+        loading_speed:                  50;
+        cost_factor:                    116;
+        running_cost_factor:            116;
+        /* cargo_age_period is left at default */
+
+        /* RV-specific properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;              //enable new graphics
+        speed:                          88 km/h;
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC);
+        refit_cost:                     0;                                  // Refitting is free
+        /* callback_flags are not set, no need to manually enable callbacks */
+        running_cost_base:              RUNNING_COST_ROADVEH;
+        power:                          140 hp;
+        weight:                         6 ton;
+        tractive_effort_coefficient:    0.7;                                // Default is 0.3
+        /* Air drag coefficient is left at default */
+        cargo_capacity:                 150;                                // Max 255. Overridden by callback below
+        sound_effect:                   SOUND_BUS_START_PULL_AWAY;
+        /* Visual effect is left at default (no effect) */
+    }
+
+    /* Define graphics */
+    graphics {
+        default:                        resolution_morris_m8;
+            // purchase:                spriteset_purchase_morris_m8;
+        cargo_capacity:                 param_capacity_morris_m8;                                // This will be what appears in game
+    }
+}
+
+/* End morris_m8 */
+
+/* Begin sherpa */
+
+/* ITEM*/
+
+//graphics definition
+spriteset(spriteset_sherpa_1, "src/gfx/sherpa/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+spriteset(spriteset_sherpa_2, "src/gfx/sherpa/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+alternative_sprites(spriteset_sherpa_2, ZOOM_LEVEL_IN_2X, BIT_DEPTH_8BPP, "src/gfx/sherpa/2x_8bpp.png") {
+	template_2x_truck(0,0)
+}
+
+spritegroup spritegroup_sherpa_1 {
+	loaded:		[spriteset_sherpa_1];
+	loading:	[spriteset_sherpa_1];
+}
+
+spritegroup spritegroup_sherpa_2 {
+	loaded:		[spriteset_sherpa_2];
+	loading:	[spriteset_sherpa_2];
+}
+
+switch (FEAT_ROADVEHS, SELF, resolution_sherpa, param_resolution) {
+0: spritegroup_sherpa_1;
+1: spritegroup_sherpa_2;
+}
+
+/* Define the road vehicle */
+item(FEAT_ROADVEHS, item_sherpa, 3) {
+    property {
+        /* Properties common to all vehicle types */
+        name:                           string(STR_NAME_SHERPA);
+        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
+        introduction_date:              date(1974,01,01);               
+        model_life:                     65;
+        /* retire_early not set, use default retirement behaviour */
+        vehicle_life:                   40;
+        reliability_decay:              20;
+        refittable_cargo_classes:       bitmask(CC_MAIL);
+        default_cargo_type:             MAIL;
+        non_refittable_cargo_classes:   bitmask(CC_PASSENGERS, CC_EXPRESS, CC_REFRIGERATED);
+        loading_speed:                  param_capacity_sherpa / 5;          // 20% with each load
+        cost_factor:                    180;                                // in line with 'gm'
+        running_cost_factor:            180;                                // in line with 'gm'
+        /* cargo_age_period is left at default */
+
+        /* RV-specific properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;              //enable new graphics
+        speed:                          120 km/h;                           // in line with 'gm'
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC);
+        refit_cost:                     0;                                  // Refitting is free
+        /* callback_flags are not set, no need to manually enable callbacks */
+        running_cost_base:              RUNNING_COST_ROADVEH;
+        power:                          253 hp;                             // in line with 'gm'
+        weight:                         10 ton;                             // in line with 'gm'
+        tractive_effort_coefficient:    0.7;                                // Default is 0.3
+        /* Air drag coefficient is left at default */
+        cargo_capacity:                 70;                                // Max 255. Overridden by callback below
+        sound_effect:                   SOUND_BUS_START_PULL_AWAY;
+        /* Visual effect is left at default (no effect) */
+    }
+
+    /* Define graphics */
+    graphics {
+        default:                        resolution_sherpa;
+            // purchase:                       spriteset_purchase_sherpa;
+        cargo_capacity:                 param_capacity_sherpa;                                // This will be what appears in game
+    }
+}
+
+/* End sherpa */
+
+ /* Begin transit */
+
+/* ITEM*/
+
+//graphics definition
+spriteset(spriteset_transit_1, "src/gfx/transit/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+spriteset(spriteset_transit_2, "src/gfx/transit/1x_8bpp.png") {
+    template_1x_truck(0, 0)
+}
+
+alternative_sprites(spriteset_transit_2, ZOOM_LEVEL_IN_2X, BIT_DEPTH_8BPP, "src/gfx/transit/2x_8bpp.png") {
+	template_2x_truck(0,0)
+}
+
+spritegroup spritegroup_transit_1 {
+	loaded:		[spriteset_transit_1];
+	loading:	[spriteset_transit_1];
+}
+
+spritegroup spritegroup_transit_2 {
+	loaded:		[spriteset_transit_2];
+	loading:	[spriteset_transit_2];
+}
+
+switch (FEAT_ROADVEHS, SELF, resolution_transit, param_resolution) {
+0: spritegroup_transit_1;
+1: spritegroup_transit_2;
+}
+
+/* Define the road vehicle */
+item(FEAT_ROADVEHS, item_transit, 4) {
+    property {
+        /* Properties common to all vehicle types */
+        name:                           string(STR_NAME_TRANSIT);
+        climates_available:             bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL);
+        introduction_date:              date(2001,01,01);                   // Van of the Year 2001
+        model_life:                     65;
+        /* retire_early not set, use default retirement behaviour */
+        vehicle_life:                   40;
+        reliability_decay:              20;
+        refittable_cargo_classes:       bitmask(CC_MAIL);
+        default_cargo_type:             MAIL;
+        non_refittable_cargo_classes:   bitmask(CC_PASSENGERS, CC_EXPRESS, CC_REFRIGERATED);
+        loading_speed:                  param_capacity_transit/5;           // 20% with each load
+        cost_factor:                    200;                                // in line with 'ld'
+        running_cost_factor:            200;                                // in line with 'ld'
+        /* cargo_age_period is left at default */
+
+        /* RV-specific properties */
+        sprite_id:                      SPRITE_ID_NEW_ROADVEH;              //enable new graphics
+        speed:                          140 km/h;                           // in line with 'ld'
+        misc_flags:                     bitmask(ROADVEH_FLAG_2CC);
+        refit_cost:                     0;                                  // Refitting is free
+        /* callback_flags are not set, no need to manually enable callbacks */
+        running_cost_base:              RUNNING_COST_ROADVEH;
+        power:                          385 hp;                             // in line with 'ld'
+        weight:                         10 ton;
+        tractive_effort_coefficient:    0.7;                                // Default is 0.3
+        /* Air drag coefficient is left at default */
+        cargo_capacity:                 70;                                // Max 255. Overridden by callback below
+        sound_effect:                   SOUND_BUS_START_PULL_AWAY;
+        /* Visual effect is left at default (no effect) */
+    }
+
+    /* Define graphics */
+    graphics {
+        default:                        resolution_transit;
+            // purchase:                       use default "going left" sprite
+        cargo_capacity:                 param_capacity_transit;                                // This will be what appears in game
+    }
+}
+
+/* End transit */
+

@@ -1,22 +1,28 @@
 ##grflangid 0x01
 
 STR_GRF_NAME						:{TITLE} {VERSION}
-STR_GRF_DESC						:{ORANGE}KeepinItMail {BLACK}- Mail Vans with large capacities {}{}Version 0.3.0 {}{}Created by KeepItRail.{}{}Sprites and vehicle stats, excluding capacity, taken from AndytheNorth's RoadHog. 
+STR_GRF_DESC						:{ORANGE}KeepinItMail {BLACK}- Mail Vans with large capacities {}{}Created by KeepinItRail. 
 STR_WEBSITE							:https://github.com/KeepinItRail/KeepinItMail
 
-
 # parameters
+# resolution
 STR_PARAM_NAME_RESOLUTION			:Graphics resolution
 STR_PARAM_DESC_RESOLUTION			:Choose the zoom level of the vehicles. Default TTD scale is 1x zoom.
 
 STR_RESOLUTION_1					:1x regular zoom
 STR_RESOLUTION_2					:2x extrazoom
 
-# vehicle names
-STR_NAME_DENNIS                     :Dennis Mail Truck {SILVER}1910
-STR_NAME_M8                         :Morris M8 Mail Truck {SILVER}1932
+# capacities
+STR_PARAM_NAME_CAPACITY			    :Capacity
+STR_PARAM_DESC_CAPACITY			    :Choose the capacity level of the vehicles. Normal is in line with other newgrfs
 
-STR_NAME_TH                         :Tallyho Mail Truck {SILVER}1909
-STR_NAME_BM                         :Brass Monkey Mail Truck {SILVER}1940
-STR_NAME_GM                         :Goldmire Mail Truck {SILVER}1971
-STR_NAME_LD                         :Littleduke Mail Truck {SILVER}1998
+STR_PARAM_NORMAL                    :Normal
+STR_PARAM_INBETWEEN                 :In between
+STR_PARAM_HIGH                      :High
+
+# vehicle names
+STR_NAME_DENNIS                     :Dennis Mail Van {SILVER}1910
+STR_NAME_M8                         :Morris M8 Mail Van {SILVER}1932
+STR_NAME_JB                         :Morris JB-type Mail Van {SILVER}1957
+STR_NAME_SHERPA                     :Leyland Sherpa Mail Van {SILVER}1974
+STR_NAME_TRANSIT                    :Ford Transit Mail Van {SILVER}2001

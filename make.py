@@ -3,13 +3,19 @@
 #################################
 
 # Name of NewGRF, as it appears in file names
-newgrf_name = "KeepinItMail_v0.4.0"
+newgrf_name = "KeepinItMail_v0.5.0"
 
 # Files which should be first, in order (header, cargotable, etc)
-header_stuff = ["header", "sprite_templates", "functions"]
+header_stuff = ["header", "cargotable", "sprite_templates", "functions","parameters"]
 
 # Files to place in alphabetical order below
-unordered_stuff = ["dennis","morris_m8"]
+vehicles = [
+    "dennis",
+    "morris_m8",
+    "morris_jb",
+    "sherpa",
+    "transit"
+    ]
 
 # Do you want to copy the completed NewGRF to your OpenTTD folder? (True/False)
 copy_bool = True
@@ -43,8 +49,8 @@ for i in header_stuff:
     append_code(i)
 
 # Sort the unordered list for readability in the printout, then append to the list
-unordered_stuff.sort()
-for i in unordered_stuff:
+vehicles.sort()
+for i in vehicles:
     append_code(i)
 
 merged_nml_path = "src/merged/" + newgrf_name + ".nml"

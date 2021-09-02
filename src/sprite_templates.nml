@@ -1,67 +1,29 @@
 /* Begin Sprite Templates */
 
-/* Purchase Templates */
-
-template tmpl_purchase (x, y) {
-    //left_x, upper_y, width, height, offset_x, offset_y    
-		[]
-	 	[]
-	 	[]
-	 	[]
-	 	[]
-	 	[]
-        [x, y, 76, 15, -14, -8]
-		[]
-}
-
 /* Sprite template for a truck */
 
-template tmpl_truck(x, y) {
+template template_1x_truck(x, y) {                               
     //left_x, upper_y, width, height, offset_x, offset_y
-    [  0 + x, y,        8,    18,      -3,      -10]
-    [ 16 + x, y,       20,    16,     -14,       -7]
-    [ 48 + x, y,       28,    12,     -14,       -6]
-    [ 96 + x, y,       20,    16,      -6,       -7]
-    [128 + x, y,        8,    18,      -3,      -10]
-    [144 + x, y,       20,    16,     -14,       -7]
-    [176 + x, y,       28,    12,     -14,       -6]
-    [224 + x, y,       20,    16,      -6,       -7]
-}
-
-template template_1x_truck(x, y) {
-    //left_x, upper_y, width, height, offset_x, offset_y
-    [ x,		y,		9,		30,		-4,			-20,	ANIM]
-    [ x+17,		y,		26,		27,		-13,		-16,	ANIM]
-    [ x+51,		y,		33,		19,		-13,		-14,	ANIM]
-    [ x+92,		y,		26,		27,		-13,		-17,	ANIM]
-    [ x+126,	y,		9,		30,		-4,			-20,	ANIM]
-    [ x+143,	y,		26,		24,		-14,		-16,	ANIM]
-    [ x+177,	y,		33,		19,		-16,		-14,	ANIM]
-    [ x+218,	y,		26,		24,		-13,		-17,	ANIM]
+    [ x,		y,		9,		23,		-4,			-10,	ANIM]   // ⬆ y: more -ve = U | less -ve = D
+    [ x+17,		y,		26,		27,		-13,		-17,	ANIM]   // ↗
+    [ x+51,		y,		33,		19,		-16,		-13,	ANIM]   // ➡ x: more -ve = L | less -ve = R y: more -ve = U | less -ve = D
+    [ x+92,		y,		26,		27,		-7,		    -15,	ANIM]   // ↘
+    [ x+126,	y,		9,		23,		-4,			-10,	ANIM]   // ⬇ y: more -ve = U | less -ve = D
+    [ x+143,	y,		26,		27,		-19,		-13,	ANIM]   // ↙
+    [ x+177,	y,		33,		19,		-16,		-12,	ANIM]   // ⬅ y: more -ve = U | less -ve = D
+    [ x+218,	y,		26,		27,		-13,		-17,	ANIM]   // ↖
 }
 
 template template_2x_truck(x, y) {
     //left_x, upper_y, width, height, offset_x, offset_y
-    [ x,		y,		18,		60,		-8,			-40,	ANIM]
-    [ x+34,		y,		52,		54,		-26,		-32,	ANIM]
-    [ x+102,	y,		66,		38,		-26,		-28,	ANIM]
-    [ x+184,	y,		52,		54,		-26,		-34,	ANIM]
-    [ x+252,	y,		18,		60,		-8,			-40,	ANIM]
-    [ x+286,	y,		52,		48,		-28,		-32,	ANIM]
-    [ x+354,	y,		66,		38,		-32,		-28,	ANIM]
-    [ x+436,	y,		52,		48,		-26,		-34,	ANIM]
-}
-
-template template_4x_truck(x, y) {
-    //left_x, upper_y, width, height, offset_x, offset_y
-    [ x,		y,		36,		120,	-16,		-80,	ANIM]
-    [ x+68,		y,		104,	108,	-52,		-64,	ANIM]
-    [ x+204,	y,		132,	76,		-52,		-56,	ANIM]
-    [ x+368,	y,		104,	108,	-52,		-68,	ANIM]
-    [ x+504,	y,		36,		120,	-16,		-80,	ANIM]
-    [ x+572,	y,		104,	96,		-56,		-64,	ANIM]
-    [ x+708,	y,		132,	76,		-64,		-56,	ANIM]
-    [ x+872,	y,		104,	96,		-52,		-68,	ANIM]
+    [ x,		y,		18,		46,		-8,			-20,	ANIM]   // ⬆
+    [ x+34,		y,		52,		54,		-26,		-34,	ANIM]   // ↗
+    [ x+102,	y,		66,		38,		-32,		-26,	ANIM]   // ➡
+    [ x+184,	y,		52,		54,		-12,		-30,	ANIM]   // ↘
+    [ x+252,	y,		18,		46,		-8,			-20,	ANIM]   // ⬇
+    [ x+286,	y,		52,		54,		-38,		-26,	ANIM]   // ↙
+    [ x+354,	y,		66,		38,		-32,		-24,	ANIM]   // ⬅
+    [ x+436,	y,		52,		54,		-26,		-34,	ANIM]   // ↖
 }
 
 /* End Sprite Templates */
