@@ -4,26 +4,26 @@
 
 template template_1x_truck(x, y) {                               
     //left_x, upper_y, width, height, offset_x, offset_y
-    [ x,		y,		9,		23,		-4,			-10,	ANIM]   // ⬆ y: more -ve = U | less -ve = D
-    [ x+17,		y,		26,		27,		-13,		-17,	ANIM]   // ↗
-    [ x+51,		y,		33,		19,		-16,		-13,	ANIM]   // ➡ x: more -ve = L | less -ve = R y: more -ve = U | less -ve = D
-    [ x+92,		y,		26,		27,		-7,		    -15,	ANIM]   // ↘
+    [ x,		y,		9,		23,		-4,			-12,	ANIM]   // ⬆ y: more -ve = U | less -ve = D
+    [ x+17,		y,		26,		27,		-15,		-17,	ANIM]   // ↗ y: more -ve = U | less -ve = D
+    [ x+51,		y,		33,		19,		-16,		-13,	ANIM]   // ➡ x: more -ve = L | less -ve = R | y: more -ve = U | less -ve = D
+    [ x+92,		y,		26,		27,		-7,		    -16,	ANIM]   // ↘ y: more -ve = U | less -ve = D
     [ x+126,	y,		9,		23,		-4,			-10,	ANIM]   // ⬇ y: more -ve = U | less -ve = D
-    [ x+143,	y,		26,		27,		-19,		-13,	ANIM]   // ↙
+    [ x+143,	y,		26,		27,		-19,		-15,	ANIM]   // ↙ y: more -ve = U | less -ve = D
     [ x+177,	y,		33,		19,		-16,		-12,	ANIM]   // ⬅ y: more -ve = U | less -ve = D
-    [ x+218,	y,		26,		27,		-13,		-17,	ANIM]   // ↖
+    [ x+218,	y,		26,		27,		-13,		-18,	ANIM]   // ↖ y: more -ve = U | less -ve = D
 }
 
 template template_2x_truck(x, y) {
     //left_x, upper_y, width, height, offset_x, offset_y
-    [ x,		y,		18,		46,		-8,			-20,	ANIM]   // ⬆
-    [ x+34,		y,		52,		54,		-26,		-34,	ANIM]   // ↗
+    [ x,		y,		18,		46,		-8,			-24,	ANIM]   // ⬆
+    [ x+34,		y,		52,		54,		-30,		-34,	ANIM]   // ↗
     [ x+102,	y,		66,		38,		-32,		-26,	ANIM]   // ➡
-    [ x+184,	y,		52,		54,		-12,		-30,	ANIM]   // ↘
+    [ x+184,	y,		52,		54,		-14,		-32,	ANIM]   // ↘
     [ x+252,	y,		18,		46,		-8,			-20,	ANIM]   // ⬇
-    [ x+286,	y,		52,		54,		-38,		-26,	ANIM]   // ↙
+    [ x+286,	y,		52,		54,		-38,		-30,	ANIM]   // ↙
     [ x+354,	y,		66,		38,		-32,		-24,	ANIM]   // ⬅
-    [ x+436,	y,		52,		54,		-26,		-34,	ANIM]   // ↖
+    [ x+436,	y,		52,		54,		-26,		-36,	ANIM]   // ↖
 }
 
 /* End Sprite Templates */
